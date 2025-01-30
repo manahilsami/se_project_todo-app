@@ -32,4 +32,4 @@ A simple and interactive Todo application that allows users to add, manage, and 
 
 This project is deployed on GitHub Pages:
 
-- [https://manahilsami.github.io/se_project_todo-app/]
+- https://manahilsami.github.io/se_project_todo-app/
