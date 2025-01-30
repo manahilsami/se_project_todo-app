@@ -76,7 +76,7 @@ class FormValidator {
       this._hideInputError(inputElement);
     });
     this._formEl.reset();
-    this._toggleButtonState(this._inputList, this._buttonElement); // TODO - NEED TO CHECK IF WE CAN REMOVE THIS
+    this._toggleButtonState(this._inputList, this._buttonElement);
   }
 }
 
