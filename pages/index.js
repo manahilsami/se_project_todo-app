@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from "https://jspm.dev/uuid";
 import { initialTodos, validationConfig } from "../utils/constants.js";
 import Todo from "../components/Todo.js";
 import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
 
 // console.log(initialTodos);
 // console.log(validationConfig);
@@ -11,6 +12,17 @@ const addTodoPopup = document.querySelector("#add-todo-popup");
 const addTodoForm = addTodoPopup.querySelector(".popup__form");
 const addTodoCloseBtn = addTodoPopup.querySelector(".popup__close");
 const todosList = document.querySelector(".todos__list");
+
+const section = new Section({
+  items: [],
+  renderer: () => {
+    const todo = generateTodo(item); // generate todo item
+    todosList.append(todo); // add it to the todo list
+    // (Refer to the forEach loop in this file)
+  },
+  containerSelector: ".todos__list",
+});
+section.renderItems(); // call section instance's renderItems method
 
 const newToDoValidator = new FormValidator(validationConfig, addTodoForm);
 newToDoValidator.enableValidation();
@@ -30,10 +42,10 @@ const generateTodo = (data) => {
   return todoElement;
 };
 
-const renderTodo = (item) => {
-  const todo = generateTodo(item);
-  todosList.append(todo);
-};
+// const renderTodo = (item) => {
+//   const todo = generateTodo(item);
+//   section.addItem(todo);
+// };
 
 addTodoButton.addEventListener("click", () => {
   openModal(addTodoPopup);
@@ -53,14 +65,20 @@ addTodoForm.addEventListener("submit", (evt) => {
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
   const id = uuidv4();
+
   const values = { name, date, id };
+  const todo = generateTodo(values);
+  section.addItem(todo);
 
   renderTodo(values);
 
   newToDoValidator.resetValidation();
+
   closeModal(addTodoPopup);
 });
 
 initialTodos.forEach((item) => {
-  renderTodo(item);
+  const todo = generateTodo(item);
+  section.addItem(todo); // todosList.append(todo); // use addItem() method instead
+  // renderTodo(item);
 });
