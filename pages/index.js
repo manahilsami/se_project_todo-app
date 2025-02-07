@@ -18,6 +18,7 @@ const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
   handleFormSubmit: () => {},
 });
+addTodoPopup.addEventListeners();
 
 const section = new Section({
   items: [],
@@ -33,9 +34,9 @@ section.renderItems(); // call section instance's renderItems method
 const newToDoValidator = new FormValidator(validationConfig, addTodoForm);
 newToDoValidator.enableValidation();
 
-const openModal = (modal) => {
-  modal.classList.add("popup_visible");
-};
+// const openModal = (modal) => {
+//   modal.classList.add("popup_visible");
+// };
 
 const closeModal = (modal) => {
   modal.classList.remove("popup_visible");
@@ -54,34 +55,30 @@ const generateTodo = (data) => {
 // };
 
 addTodoButton.addEventListener("click", () => {
-  openModal(addTodoPopupEl);
+  addTodoPopup.open();
 });
 
-addTodoCloseBtn.addEventListener("click", () => {
-  closeModal(addTodoPopupEl);
-});
+// addTodoForm.addEventListener("submit", (evt) => {
+//   evt.preventDefault();
+//   const name = evt.target.name.value;
+//   const dateInput = evt.target.date.value;
 
-addTodoForm.addEventListener("submit", (evt) => {
-  evt.preventDefault();
-  const name = evt.target.name.value;
-  const dateInput = evt.target.date.value;
+//   // Create a date object and adjust for timezone
+//   const date = new Date(dateInput);
+//   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 
-  // Create a date object and adjust for timezone
-  const date = new Date(dateInput);
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
+//   const id = uuidv4();
 
-  const id = uuidv4();
+//   const values = { name, date, id };
+//   const todo = generateTodo(values);
+//   section.addItem(todo);
 
-  const values = { name, date, id };
-  const todo = generateTodo(values);
-  section.addItem(todo);
+//   // renderTodo(values);
 
-  // renderTodo(values);
+//   newToDoValidator.resetValidation();
 
-  newToDoValidator.resetValidation();
-
-  closeModal(addTodoPopupEl);
-});
+//   addTodoPopup.close();
+// });
 
 initialTodos.forEach((item) => {
   const todo = generateTodo(item);
