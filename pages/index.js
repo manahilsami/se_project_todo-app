@@ -16,9 +16,9 @@ const todosList = document.querySelector(".todos__list");
 
 const addTodoPopup = new PopupWithForm({
   popupSelector: "#add-todo-popup",
-  handleFormSubmit: (evt) => {
-    const name = evt.target.name.value;
-    const dateInput = evt.target.date.value;
+  handleFormSubmit: (inputValues) => {
+    const name = inputValues["name"];
+    const dateInput = inputValues["date"];
     // Create a date object and adjust for timezone
     const date = new Date(dateInput);
     date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
@@ -70,28 +70,6 @@ const generateTodo = (data) => {
 addTodoButton.addEventListener("click", () => {
   addTodoPopup.open();
 });
-
-// addTodoForm.addEventListener("submit", (evt) => {
-//   evt.preventDefault();
-//   const name = evt.target.name.value;
-//   const dateInput = evt.target.date.value;
-
-//   // Create a date object and adjust for timezone
-//   const date = new Date(dateInput);
-//   date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
-
-//   const id = uuidv4();
-
-//   const values = { name, date, id };
-//   const todo = generateTodo(values);
-//   section.addItem(todo);
-
-//   // renderTodo(values);
-
-//   newToDoValidator.resetValidation();
-
-//   addTodoPopup.close();
-// });
 
 initialTodos.forEach((item) => {
   const todo = generateTodo(item);
